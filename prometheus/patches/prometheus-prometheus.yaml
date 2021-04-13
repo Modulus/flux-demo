@@ -1,0 +1,44 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  labels:
+    prometheus: k8s
+  name: k8s
+  namespace: monitoring
+spec:
+  alerting:
+    alertmanagers:
+    - name: alertmanager-main
+      namespace: monitoring
+      port: web
+  baseImage: quay.io/prometheus/prometheus
+  nodeSelector:
+    kubernetes.io/os: linux  
+  # thanos:
+  #   image: "quay.io/thanos/thanos:v0.14.0"
+  #   tag: "v0.14.0"
+  #   objectStorageConfig: 
+  #     key: "thanos.yaml"  # How the file inside the secret is called
+  #     name: "thanos-objectstorage"  # This is the name of your Kubernetes secret with the config
+    # version: 'v0.7.0'
+  podMonitorNamespaceSelector: {}
+  podMonitorSelector: {}
+  # ruleNamespaceSelector: 
+  #   matchLabels:
+  #     prometheus: k8s
+  replicas: 2
+  resources:
+    requests:
+      cpu: "2"
+      memory: 400Mi #TODO: Sett denne til 20Gi for ai clusteret
+  ruleSelector: {}
+    # matchLabels:
+    #   prometheus: k8s
+      # role: alert-rules
+  serviceAccountName: prometheus-k8s
+  serviceMonitorNamespaceSelector: {}
+    # matchLabels:
+    #   prometheus: k8s
+  serviceMonitorSelector: {}
+    # matchLabels:
+    #   prometheus: k8s
