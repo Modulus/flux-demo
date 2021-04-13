@@ -14,8 +14,31 @@ brew install fluxcd/tap/flux
 curl -s https://toolkit.fluxcd.io/install.sh | sudo bash
 ```
 
+# Autocompletion
+*~/.bashrc or ~/.bash_profile*
+. <(flux completion bash)
+
 # Create kind cluster
 kind create cluster --config kind-config.yaml --name flux-cluster
 
 # Check compability
 flux check --pre
+
+
+
+# Initialize
+flux bootstrap github \
+  --owner=$GITHUB_USER \
+  --repository=fleet-infra \
+  --branch=main \
+  --path=./k8s/demo \
+  --personal
+
+# Initialize under organization
+flux bootstrap github \
+  --owner=<organization> \
+  --repository=<repo-name> \
+  --branch=<organization default branch> \
+  --team=<team1-slug> \
+  --team=<team2-slug> \
+  --path=./clusters/my-cluster
