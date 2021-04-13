@@ -39,16 +39,6 @@ flux bootstrap github \
   --personal
 
 
-export GITHUB_TOKEN=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
-export GITHUB_USER=Modulus
-flux bootstrap github \
-  --owner=$GITHUB_USER \
-  --repository= git@github.com:Modulus/flux-demo.git \
-  --branch=main \
-  --path=prometheus,k8s \
-  --personal
-
-
 # Initialize under organization
 flux bootstrap github \
   --owner=<organization> \
